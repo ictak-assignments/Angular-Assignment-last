@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="row">
+        <h1 class="text-center">Update Author Details </h1>
+        <div class="col-6 offset-3">
+            <form (ngSubmit)="updateAuthor()" class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name:</label>
+                    <input class="form-control" type="text" id="name"  name="name" [(ngModel)]="author.name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image Url</label>
+                    <input class="form-control" type="text"  name="Image" id="image"  [(ngModel)]="author.image">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="Nationality">Author's Nationality</label>
+                    <input class="form-control" type="text" id="Nationality"  name="nationality" [(ngModel)]="author.nationality">
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label" for="description">Descrition</label>
+                    <textarea  class="form-control" type="text" id="description"  name="description" [(ngModel)]="author.description">
+                    </textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success" >Update author Details</button>
+                </div>
+            </form>
+        <div>
+    </div>
+    <div>
+        <a href="/authors/{{author._id}}">Back to authors</a>
+    </div>
+</div>
+    
+
+

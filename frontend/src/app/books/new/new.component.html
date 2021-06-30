@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <div class="row">
+        <h1 class="text-center">New Book</h1>
+        <div class="col-6 offset-3">
+            <!-- <form action="/books" method="POST"> -->
+            <form #form="ngForm" (ngSubmit)="AddBook()">
+                <div class="mb-3">
+                        <label class="form-label" for="name">Name:</label>
+                        <input class="form-control" type="text" id="name" #name="ngModel" name="name" [(ngModel)]="book.name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image:</label>
+                    <input class="form-control" type="text" id="image" #image="ngModel" name="image" [(ngModel)]="book.image" required>
+                </div>
+                <!-- <div class="mb-3">
+                    <label class="form-label" for="image">Image</label>
+                    <input class="form-control" type="file" id="image" name="image2"required>
+                </div> -->
+                <div class="mb-3">
+                    <label class="form-label" for="author">Author</label>
+                    <input class="form-control" type="text" id="author" #image="ngModel" name="author" [(ngModel)]="book.author" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Descrition</label>
+                    <textarea  class="form-control" type="text" id="description" #description="ngModel" name="description" [(ngModel)]="book.description" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success" >Add</button>
+                </div>
+            </form>
+    
+            <div>
+                <a href="/books">All Books page</a>
+            </div>
+        </div>
+    </div>
+</div>

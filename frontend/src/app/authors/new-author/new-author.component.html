@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="row">
+        <h1 class="text-center">New Author</h1>
+        <div class="col-6 offset-3">
+            <!-- <form action="/books" method="POST"> -->
+            <form #form="ngForm" (ngSubmit)="AddAuthor()">
+                <div class="mb-3">
+                        <label class="form-label" for="name">Name:</label>
+                        <input class="form-control" type="text" id="name" #name="ngModel" name="name" [(ngModel)]="author
+                        .name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image:</label>
+                    <input class="form-control" type="text" id="image" #image="ngModel" name="image" [(ngModel)]="author
+                    .image" required>
+                </div>
+                <!-- <div class="mb-3">
+                    <label class="form-label" for="image">Image</label>
+                    <input class="form-control" type="file" id="image" name="image2"required>
+                </div> -->
+                <div class="mb-3">
+                    <label class="form-label" for="Nationality">Nationality</label>
+                    <input class="form-control" type="text" id="Nationality" #image="ngModel" name="nationality" [(ngModel)]="author
+                    .nationality" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Descrition</label>
+                    <textarea  class="form-control" type="text" id="description" #description="ngModel" name="description" [(ngModel)]="author
+                    .description" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success" >Add</button>
+                </div>
+            </form>
+    
+            <div>
+                <a href="/authors">All Authors Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+
