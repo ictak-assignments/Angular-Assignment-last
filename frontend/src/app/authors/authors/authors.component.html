@@ -4,35 +4,27 @@
             <h1 style="text-align: center;">Authors</h1>
         </div>
     </div>
-        <div class="row">
-            <div class="col-12" *ngFor="let author of authors">
-                    <div class="col-md-4">
-                        <img class="img-fluid" alt="book-picture"
-                    src="{{author.image}}">
-                       
+    <div class="row">
+        <div class="col-12" *ngFor="let author of authors">
+                <div class="col-md-4">
+                    <img class="img-fluid" alt="book-picture"
+                src="{{author.image}}">
+                    
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h4 class="card-title"></h4>
+                        
+                        <p class="card-text">
+                            <small class="text-muted"> <em><b>{{author.name}}</b> {{author.nationality}}</em></small>
+                        </p>
+                        <a class="btn btn-primary" href="/authors/{{author._id}}">View {{ author.name}}</a>
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h4 class="card-title"></h4>
-                            
-                            <p class="card-text">
-                                <small class="text-muted"> <em><b>{{author.name}}</b> {{author.nationality}}</em></small>
-                            </p>
-                            <a class="btn btn-primary" href="/authors/{{author._id}}">View {{ author.name}}</a>
-                        </div>
-                    </div>
-            </div>
+                </div>
         </div>
-        
-    
-    
-    <div>
-        <a href="authors/new">Add an author info</a>
     </div>
-    <div>
-        <p>
-            <!-- <a href="/">back to index</a> -->
-        </p>
+    <div *ngIf="showAddButton">
+        <button class="btn btn-sm btn-success text-center"><a routerLink="/authors/new">Add A Author`s Info</a></button>
     </div>
 </main>
 

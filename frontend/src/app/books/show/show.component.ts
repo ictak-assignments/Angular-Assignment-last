@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-
-// import { BookService } from 'src/app/book.service';
 import { bookModel } from '../books/bookModel';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-show',
@@ -17,15 +16,33 @@ export class ShowComponent implements OnInit {
   imageMargin: number = 2;
   showImage: boolean = true;
   bookid:string;
+  showDeleteButton:boolean;
 
 // constructor(private bookService:BookService,public http:HttpClient) { }
- constructor(public http:HttpClient,private route:ActivatedRoute,private router:Router) { }
- getBookById(){
-  return this.http.get<any>(`http://localhost:3000/books/${this.bookid}`);
-}
+ constructor(public http:HttpClient,private route:ActivatedRoute,private router:Router,public _auth:AuthService) { }
+    getBookById(){
+      return this.http.get<any>(`http://localhost:3000/books/${this.bookid}`);
+    }
+    
+    isLogged(){
+      if (this._auth.loggedIn()){
+        console.log('true')
+        this.showDeleteButton = true;
+        return true
+      }
+      else {
+        // this._router.navigate(['/'])
+        this.showDeleteButton = false
+        return false
+      }
+    }
+
+
 
   ngOnInit(): void {
     this.bookid = this.route.snapshot.params['Id'];
+    this.isLogged()
+  
     this.getBookById()
     .subscribe((data:any) =>{
       this.books = JSON.parse(JSON.stringify(data));

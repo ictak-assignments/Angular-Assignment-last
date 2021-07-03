@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { authorModel } from '../authors/authorModel';
 import { ActivatedRoute,Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 @Component({
   selector: 'app-show-author',
   templateUrl: './show-author.component.html',
@@ -10,14 +11,28 @@ import { ActivatedRoute,Router } from '@angular/router';
 export class ShowAuthorComponent implements OnInit {
   authors:authorModel;
   id:string;
+  showDeleteButton:boolean= false;
 
-  constructor(private router:Router,private route:ActivatedRoute,private http:HttpClient) { }
+  constructor(public _auth:AuthService,private router:Router,private route:ActivatedRoute,private http:HttpClient) { }
   getAuthorById(){
     return this.http.get<any>(`http://localhost:3000/authors/${this.id}`);
+  }
+  isLogged(){
+    if (this._auth.loggedIn()){
+      console.log('true')
+      this.showDeleteButton = true;
+      return true
+    }
+    else {
+      // this._router.navigate(['/'])
+      this.showDeleteButton = false
+      return false
+    }
   }
 
  
   ngOnInit(): void {
+    this.isLogged();
     this.id = this.route.snapshot.params['Id'];
     this.getAuthorById()
     .subscribe((data:any) =>{

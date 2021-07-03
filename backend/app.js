@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-// const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const methodOverride = require('method-override');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpresError');
@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken')
 username='admin';
 password='1234';
 
+//===================== connecting our database
 mongoose.connect('mongodb://localhost:27017/bookself-old', {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -24,6 +25,8 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+
+//======================== creating our application
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -33,6 +36,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//============================ this is to verify with jwt =============================
 
 function verifyToken(req, res, next) {
     if(!req.headers.authorization) {
@@ -174,8 +179,8 @@ app.delete('/authors/:id',verifyToken, async (req, res) => {
 //    });
 
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000');
+app.listen(port, () => {
+    console.log('Serving on port number'+port);
 })
 
 
