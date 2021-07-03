@@ -8,14 +8,12 @@ export class bookModel{
 
     ){}
 }
-export class bookModel1{
+export class bookModel2{
     constructor(
         public name:string,
         public image:string,
         public description:string,
         public author:string,
-        public _id:string
-
     ){}
 }
 

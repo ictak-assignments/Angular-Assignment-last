@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { authorModel } from '../authors/authorModel';
+import { authorModel2 } from '../authors/authorModel';
 import { ActivatedRoute,Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,7 +10,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditAuthorComponent implements OnInit {
   id:string;
-  author = new authorModel("","","","","")
+  // author = new authorModel("","","","","");
+  author = new authorModel2("","","","");
+
   constructor(private route:ActivatedRoute,private http:HttpClient,private router:Router) { }
 
   getAuthorsById() {
@@ -25,7 +27,7 @@ export class EditAuthorComponent implements OnInit {
     })
   }
   editAuthor(item:any) {
-    return this.http.put(`http://localhost:3000/authors/${this.id}`,{item})
+    return this.http.put(`http://localhost:3000/authors/${this.id}`,{"author":item})
     .subscribe(data => { console.log(data)})
   }
   updateAuthor() {

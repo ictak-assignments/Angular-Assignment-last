@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { bookModel } from '../books/bookModel';
+import { bookModel2 } from '../books/bookModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 @Component({
@@ -13,7 +13,7 @@ export class EditComponent implements OnInit {
   // books:bookModel;
 
   constructor(private route:ActivatedRoute,private http:HttpClient,private router:Router) { }
-  book = new bookModel("","","","","")
+  book = new bookModel2("","","","");
 
   getBookById(){
     return this.http.get<any>(`http://localhost:3000/books/${this.id}`);
@@ -31,14 +31,15 @@ export class EditComponent implements OnInit {
   }
   editBook(item:any)
   {
-    return this.http.put(`http://localhost:3000/books/${this.id}`,{item})
-    .subscribe(data =>{ console.log(data)})
+    return this.http.put(`http://localhost:3000/books/${this.id}`,{"book":item})
+    .subscribe(data =>{ 
+      // console.log(data)
+    })
   }
   updateBook()
   {
     this.editBook(this.book);
     alert("success");
-    // alert(this.book);
     this.router.navigate(['/books'])
   }
 

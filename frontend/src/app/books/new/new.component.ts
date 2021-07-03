@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { bookModel } from '../books/bookModel';
+import { bookModel2 } from '../books/bookModel';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,9 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class NewComponent implements OnInit {
 
   constructor(private http:HttpClient,private router:Router) { }
-  book = new bookModel ("","","","","");
-  
-
+  book = new bookModel2 ("","","","");
 
   ngOnInit(): void {
   }

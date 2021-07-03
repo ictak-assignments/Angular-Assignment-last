@@ -67,131 +67,101 @@ app.post('/login', (req, res) => {
         }
     });
 
-app.get('/books',(req,res)=>{
+app.get('/books',async (req,res)=>{
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    BookData.find()
-                .then(function(books){
-                    return res.send(books);
-                });
-});
-app.post('/books',verifyToken, function(req,res){
-    res.header("Access-Control-Allow-Origin","*")
-    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    var book = {       
-        name : req.body.book.name,
-        image:req.body.book.image,
-        description: req.body.book.description,
-        author:req.body.book.author
-   }       
-   var book = new BookData(book);
-    book.save();
+    const books = await BookData.find();
+    return res.send(books);
 });
 
-app.get('/books/:id', (req,res) => {
+app.post('/books',verifyToken, async function(req,res){
+    console.log(req.body.book)
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    // const book = await BookData.findById(req.params.id)
-	// return res.send(book);
-    BookData.findById(req.params.id)
-    .then(function(book){
-        return res.send(book)
-    })
-    
+    var book4saving = new BookData(req.body.book);
+    await book4saving.save();
+});
+
+app.get('/books/:id', async (req,res) => {
+    res.header("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
+    const book = await BookData.findById(req.params.id)
+	return res.send(book);
 });
 
 app.put('/books/:id',verifyToken, async (req, res) => {
     const { id } = req.params;
-    // id = req.body.item._id;
-    name = req.body.item.name;
-    image = req.body.item.image;
-    description = req.body.item.description;
-    author = req.body.item.author;
-
-    const book = await BookData.findByIdAndUpdate({"_id":id},
-                                            {
-                                                $set: {"_id":id,
-                                                    "name":name,
-                                                "image":image,
-                                                "description":description,
-                                                "author":author }
-                                            }
-    );
-    // console.log(book);
+    console.log(req.body.book)
+    const book = await BookData.findByIdAndUpdate(id, { ...req.body.book });
 })
 
 app.delete('/books/:id',verifyToken, async (req, res) => {
-    const { id } = req.params;
-    console.log("id below")
-    console.log(id);
-    const deletedProduct = await BookData.findByIdAndDelete(id,function(err,docs){
-        if(err){ console.log(err) }
-        else { console.log('deletion success',docs) }
-    }
-    );
-    
+    await BookData.findByIdAndDelete(req.params.id);
 });
+
 // ========================== Author Routes =======================================//
-app.get('/authors',(req,res)=>{
+app.get('/authors',async (req,res)=>{
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    AuthorData.find()
-                .then(function(authors){
-                    return res.send(authors);
-                });
-    
+    const authors = await AuthorData.find({})
+    return res.send(authors);
+    // AuthorData.find()
+    //             .then(function(authors){
+    //                 return res.send(authors);
+    //             });
 });
-app.post('/authors',verifyToken, function(req,res){
+
+app.post('/authors',verifyToken, async function(req,res){
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    console.log(req.body)
-    var author = {       
-        name : req.body.author.name,
-        image:req.body.author.image,
-        nationality:req.body.author.nationality,
-        description: req.body.author.description,
-   }       
-   var author = new AuthorData(author);
-    author.save();
+    console.log(req.body.author)
+   //  var author = {       
+   //      name : req.body.author.name,
+   //      image:req.body.author.image,
+   //      nationality:req.body.author.nationality,
+   //      description: req.body.author.description,
+   // }       
+   var author4saving = new AuthorData(req.body.author);
+    await author4saving.save();
 });
-app.get('/authors/:id', (req,res) => {
+app.get('/authors/:id', async (req,res) => {
     res.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE,OPTIONS");
-    // const book = await BookData.findById(req.params.id)
-	// return res.send(book);
-    AuthorData.findById(req.params.id)
-    .then(function(author){
-        return res.send(author)
-    })
+    const author = await AuthorData.findById(req.params.id)
+	return res.send(author);
+    // AuthorData.findById(req.params.id)
+    // .then(function(author){
+    //     return res.send(author)
+    // })
     
 });
 app.put('/authors/:id',verifyToken, async (req, res) => {
     const { id } = req.params;
+    console.log(req.body.author)
     // id = req.body.item._id;
-    name = req.body.item.name;
-    image = req.body.item.image;
-    description = req.body.item.description;
-    nationality = req.body.item.nationality;
-    const author = await AuthorData.findByIdAndUpdate({"_id":id},
-                                            {
-                                                $set: {"_id":id,
-                                                    "name":name,
-                                                "image":image,
-                                                "description":description,
-                                                "nationality":nationality }
-                                            }
-    );
+    // name = req.body.item.name;
+    // image = req.body.item.image;
+    // description = req.body.item.description;
+    // nationality = req.body.item.nationality;
+    // const author = await AuthorData.findByIdAndUpdate({"_id":id},
+    //                                         {
+    //                                             $set: {"_id":id,
+    //                                                 "name":name,
+    //                                             "image":image,
+    //                                             "description":description,
+    //                                             "nationality":nationality }
+    //                                         }
+    // );
+    const author = await AuthorData.findByIdAndUpdate(id, { ...req.body.author });
     })
 
 app.delete('/authors/:id',verifyToken, async (req, res) => {
-    const { id } = req.params;
-    console.log("id below")
-    console.log(id);
-    const deletedProduct = await AuthorData.findByIdAndDelete(id,function(err,docs){
-        if(err){ console.log(err) }
-        else { console.log('deletion success',docs) }
-    }
-    );
+    await AuthorData.findByIdAndDelete(req.params.id)
+    // const deletedProduct = await AuthorData.findByIdAndDelete(id,function(err,docs){
+    //     if(err){ console.log(err) }
+    //     else { console.log('deletion success',docs) }
+    // }
+    // );
     
 });
 
@@ -202,19 +172,6 @@ app.delete('/authors/:id',verifyToken, async (req, res) => {
 //     else res.json('Employee Deleted Successfully');
 //     });
 //    });
-
-//===================================== Error Handling =============================================//
-
-
-app.all('*', (req, res, next) => {
-    next(new ExpressError('Page Not Found', 404))
-})
-
-app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
-    res.status(statusCode).render('error', { err })
-})
 
 
 app.listen(3000, () => {

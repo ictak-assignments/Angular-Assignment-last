@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 // import { BookService } from 'src/app/book.service';
-import { bookModel1 } from '../books/bookModel';
+import { bookModel } from '../books/bookModel';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -12,20 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ShowComponent implements OnInit {
 
-  books:bookModel1;
+  books:bookModel;
   imageWidth:number = 50;
   imageMargin: number = 2;
   showImage: boolean = true;
-  id:string;
+  bookid:string;
 
 // constructor(private bookService:BookService,public http:HttpClient) { }
  constructor(public http:HttpClient,private route:ActivatedRoute,private router:Router) { }
  getBookById(){
-  return this.http.get<any>(`http://localhost:3000/books/${this.id}`);
+  return this.http.get<any>(`http://localhost:3000/books/${this.bookid}`);
 }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['Id'];
+    this.bookid = this.route.snapshot.params['Id'];
     this.getBookById()
     .subscribe((data:any) =>{
       this.books = JSON.parse(JSON.stringify(data));
@@ -33,7 +33,7 @@ export class ShowComponent implements OnInit {
   }
  
   destroyBook(){
-    return this.http.delete(`http://localhost:3000/books/${this.id}`)
+    return this.http.delete(`http://localhost:3000/books/${this.bookid}`)
   }
   deleteBook(){
     this.destroyBook()

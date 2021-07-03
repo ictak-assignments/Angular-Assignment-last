@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { authorModel } from '../authors/authorModel';
+import { authorModel2 } from '../authors/authorModel';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { authorModel } from '../authors/authorModel';
   styleUrls: ['./new-author.component.css']
 })
 export class NewAuthorComponent implements OnInit {
-  author = new authorModel("","","","","")
+  author = new authorModel2("","","","");
 
   constructor(private router:Router,private http:HttpClient) { }
   newAuthor(item)
