@@ -23,6 +23,7 @@ import { ShowAuthorComponent } from './authors/show-author/show-author.component
 import { NewAuthorComponent } from './authors/new-author/new-author.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { LoginHomeComponent } from './login-home/login-home.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SignupComponent } from './signup/signup.component';
     NewAuthorComponent,
     LoginComponent,
     SignupComponent,
+    LoginHomeComponent,
   ],
   imports: [
     BrowserModule,
