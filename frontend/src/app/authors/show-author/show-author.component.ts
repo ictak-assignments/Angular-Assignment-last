@@ -12,6 +12,7 @@ export class ShowAuthorComponent implements OnInit {
   authors:authorModel;
   id:string;
   showDeleteButton:boolean= false;
+  
 
   constructor(public _auth:AuthService,private router:Router,private route:ActivatedRoute,private http:HttpClient) { }
   getAuthorById(){

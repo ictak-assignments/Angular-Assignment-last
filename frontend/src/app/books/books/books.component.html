@@ -1,28 +1,39 @@
 <main class="container mt-5">
-    <div class="row">
-        <div class="col-6 ">
-            <h1 style="text-align: center;">All Books</h1>
+  <div class="row">
+    <div class="col-6">
+      <h1 style="text-align: center">All Books</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" *ngFor="let book of books">
+      <div class="col-md-4">
+        <img class="img-fluid" alt="book-picture" src="{{ book.image }}" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h4 class="card-title"></h4>
+
+          <p class="card-text">
+            <small class="text-muted"
+              >written by
+              <em
+                ><b>{{ book.author }}</b></em
+              ></small
+            >
+          </p>
+          <a class="btn btn-primary" href="/books/{{ book._id }}"
+            >View {{ book.name }}</a
+          >
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-12" *ngFor="let book of books">
-                <div class="col-md-4">
-                    <img class="img-fluid" alt="book-picture"
-                src="{{book.image}}">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        
-                        <p class="card-text">
-                            <small class="text-muted">written by <em><b>{{book.author}}</b></em></small>
-                        </p>
-                        <a class="btn btn-primary" href="/books/{{book._id}}">View {{ book.name}}</a>
-                    </div>
-                </div>
-        </div>
-    </div>
-    <div *ngIf="showAddButton">
-        <button class="btn btn-sm btn-success text-center"><a routerLink="/books/new">Add A Book Info</a></button>
-    </div>
+  </div>
+  <div *ngIf="showAddButton">
+    <button
+      [hidden]="_auth.loggedIn() && _auth.userpermission() == 'user'"
+      class="btn btn-sm btn-success text-center"
+    >
+      <a routerLink="/books/new">Add A Book Info</a>
+    </button>
+  </div>
 </main>

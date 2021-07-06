@@ -1,37 +1,49 @@
-<main class="container mt-5"  >
-    <div class="row">
-        <div class="col-6 offset-3">
-            <div class="card mb-3">
-                <img src="{{authors.image}}" class="card-img-top" alt="">
-                <div class="card-body">
-                    <h3 class="card-title">{{authors.name}}</h3>
-                    <p class="card-text">{{authors.description}} </p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-muted"> <b>{{authors.name}}</b> is born in {{authors.nationality}}</li>
-                </ul>
-                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-muted">This authors info posted 2 days ago
-                    </li>
-                </ul> 
-                 <div class="card-body" *ngIf="showDeleteButton" >
-                    <a class="card-link btn btn-info" routerLink="/authors/{{authors._id}}/edit">Edit</a>
-                    <div class="d-inline">
-                        <button type="submit" (click)="deleteAuthor()" class="btn btn-danger" >Delete</button>
-                    </div>
-                </div>
-            
-                <div class="card-footer text-muted">
-                    2 days ago
-                </div>
-                <div class="card-footer" text-primary>
-                    <a href="/authors">back to all authors</a>
-                </div>
-            </div>
+<main class="container mt-5">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="card mb-3">
+        <img src="{{ authors.image }}" class="card-img-top" alt="" />
+        <div class="card-body">
+          <h3 class="card-title">{{ authors.name }}</h3>
+          <p class="card-text">{{ authors.description }}</p>
         </div>
-    </div>
-</main>  
- 
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-muted">
+            <b>{{ authors.name }}</b> is born in {{ authors.nationality }}
+          </li>
+        </ul>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-muted">
+            This authors info posted 2 days ago
+          </li>
+        </ul>
+        <div class="card-body" *ngIf="showDeleteButton">
+          <a
+            [hidden]="_auth.loggedIn() && _auth.userpermission() == 'user'"
+            class="card-link btn btn-info"
+            routerLink="/authors/{{ authors._id }}/edit"
+            >Edit</a
+          >
+          <div class="d-inline">
+            <button
+              type="submit"
+              (click)="deleteAuthor()"
+              [hidden]="_auth.loggedIn() && _auth.userpermission() == 'user'"
+              class="btn btn-danger"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
 
- <!-- <h1>hello it is server err </h1>
+        <div class="card-footer text-muted">2 days ago</div>
+        <div class="card-footer" text-primary>
+          <a href="/authors">back to all authors</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- <h1>hello it is server err </h1>
  <h1> {{Id}} </h1> -->
